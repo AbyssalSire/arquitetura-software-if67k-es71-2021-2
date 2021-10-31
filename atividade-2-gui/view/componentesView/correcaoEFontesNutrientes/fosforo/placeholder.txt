@@ -1,2 +1,0 @@
-// placeholder para upload no GitHub, uma vez que o site ignora pastas vazias
-Pasta para testes
