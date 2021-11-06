@@ -1,22 +1,33 @@
 package componentesView;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.GridLayout;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import java.awt.Font;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import componentesView.correcaoEFontesNutrientes.calcioMagnesio.BotaoCalcioMagnesio;
+import componentesView.correcaoEFontesNutrientes.fosforo.BotaoFosforo;
+import componentesView.correcaoEFontesNutrientes.potassio.BotaoPotassio;
+import componentesView.valoresIdeais.BotaoValoresIdeais;
+
+import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 
 public class PaginaPrincipal {
-
+	
 	private JFrame frmCorrecaoDeSolos;
 	private JTextField textFieldNoSoloFosforo;
 	private JTextField textFieldIdealFosforo;
@@ -37,7 +48,7 @@ public class PaginaPrincipal {
 	private JTextField textFieldNoSoloHAL;
 	private JTextField textFieldSCmol;
 	private JTextField textFieldCTCMol;
-	private JTextField textField;
+	private JTextField textFieldVPorcentoAtual;
 	private JTextField textFieldMOGdm3_1;
 	private JTextField textFieldMOGdm3_2;
 	private JTextField textFieldMOGdm3_3;
@@ -46,7 +57,7 @@ public class PaginaPrincipal {
 	private JTextField textFieldMOGdm3_Resultado_1;
 	private JTextField textFieldMOPorcento_Resultado;
 	private JTextField textFieldCarbono_Resultado;
-	private JTextField textField_11;
+	private JTextField textFieldTeorIdealMO;
 	private JTextField textFieldCorrecaoRecuperacaoFosforo;
 	private JTextField textFieldFontesFosforo;
 	private JLabel lblTeorDeFosforoAAtingir;
@@ -100,7 +111,7 @@ public class PaginaPrincipal {
 	private JTextField textField_Potassio_CTC_Ideal;
 	private JTextField txtFontesDePotassio;
 	private JLabel lbl_Potassio_QuantidadeAAplicar;
-	private JTextField textField_1;
+	private JTextField textField_quantidadeAAplicarFosforo;
 	private JLabel lblKhHectareMedida;
 	private JLabel lbl_Custo_Rs_Ha;
 	private JTextField textField_Custo_Rs_Ha_Resposta;
@@ -174,6 +185,28 @@ public class PaginaPrincipal {
 	private JTextField textField_AposCorrecoes;
 	private JTextField txtIdeal;
 	private JTextField txt_Ideal_resp;
+	private BotaoValoresIdeais func1 = new BotaoValoresIdeais();
+	private BotaoFosforo func2 = new BotaoFosforo();
+	private BotaoPotassio func3 = new BotaoPotassio();
+	private BotaoCalcioMagnesio func4 = new BotaoCalcioMagnesio();
+	private List<JTextField> listaComInputValoresIdeais = new ArrayList<JTextField>();
+	private List<JTextField> listaSemInputValoresIdeais = new ArrayList<JTextField>();
+	private List<JTextField> listaComInputFosforo = new ArrayList<JTextField>();
+	private List<JTextField> listaSemInputFosforo = new ArrayList<JTextField>();
+	private List<JTextField> listaComInputPotassio = new ArrayList<JTextField>();
+	private List<JTextField> listaSemInputPotassio = new ArrayList<JTextField>();
+	private List<JTextField> listaComInputCalcioMagnesio = new ArrayList<JTextField>();
+	private List<JTextField> listaSemInputCalcioMagnesio = new ArrayList<JTextField>();
+
+	/**
+	 * Create the application.
+	 */
+	public PaginaPrincipal() {
+		super();
+		initialize();
+	}
+	
+	
 
 	/**
 	 * Launch the application.
@@ -191,17 +224,15 @@ public class PaginaPrincipal {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public PaginaPrincipal() {
-		initialize();
-	}
+
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	protected void initialize() {
+	    List<JTextField> listaComInput = new ArrayList<JTextField>();
+	    List<JTextField> listaSemInput = new ArrayList<JTextField>();
+	    
 		frmCorrecaoDeSolos = new JFrame();
 		frmCorrecaoDeSolos.setResizable(false);
 		frmCorrecaoDeSolos.setTitle("Corre\u00E7\u00E3o de solos");
@@ -409,11 +440,11 @@ public class PaginaPrincipal {
 		lblVPorcentoAtual.setBounds(324, 162, 70, 14);
 		guiaValoresIdeais.add(lblVPorcentoAtual);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(394, 159, 50, 20);
-		guiaValoresIdeais.add(textField);
-		textField.setColumns(10);
+		textFieldVPorcentoAtual = new JTextField();
+		textFieldVPorcentoAtual.setEditable(false);
+		textFieldVPorcentoAtual.setBounds(394, 159, 50, 20);
+		guiaValoresIdeais.add(textFieldVPorcentoAtual);
+		textFieldVPorcentoAtual.setColumns(10);
 		
 		JLabel lblMOGdm3 = new JLabel("M.O. (g.dm³)");
 		lblMOGdm3.setBounds(10, 190, 80, 14);
@@ -468,11 +499,11 @@ public class PaginaPrincipal {
 		lblNewLabel_1.setBounds(374, 265, 130, 14);
 		guiaValoresIdeais.add(lblNewLabel_1);
 		
-		textField_11 = new JTextField();
-		textField_11.setEditable(false);
-		textField_11.setBounds(504, 262, 100, 20);
-		guiaValoresIdeais.add(textField_11);
-		textField_11.setColumns(10);
+		textFieldTeorIdealMO = new JTextField();
+		textFieldTeorIdealMO.setEditable(false);
+		textFieldTeorIdealMO.setBounds(504, 262, 100, 20);
+		guiaValoresIdeais.add(textFieldTeorIdealMO);
+		textFieldTeorIdealMO.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("M.O. %");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -485,6 +516,13 @@ public class PaginaPrincipal {
 		guiaValoresIdeais.add(lblCarbono);
 		
 		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Botão funcionando guia Valores Ideais, apagando textos input e adicionando texto nos JTextFields sem input");
+				func1.ApagaBotoes(PaginaPrincipal.this);
+				func1.PreencheBotoes(PaginaPrincipal.this);				
+			}
+		});
 		btnCalcular.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCalcular.setBounds(740, 299, 100, 23);
 		guiaValoresIdeais.add(btnCalcular);
@@ -796,13 +834,21 @@ public class PaginaPrincipal {
 		guiaFosforo.add(textField_Valor_Map);
 		
 		JButton btnCalcular_1 = new JButton("Calcular");
+		btnCalcular_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Botão funcionando Guia Fosforo, apagando textos input e adicionando texto nos JTextFields sem input");
+				func2.ApagaBotoes(PaginaPrincipal.this);
+				func2.PreencheBotoes(PaginaPrincipal.this);		
+			}
+		});
 		btnCalcular_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCalcular_1.setBounds(746, 400, 100, 23);
 		guiaFosforo.add(btnCalcular_1);
 		
-		JPanel txtSulfPotMag = new JPanel();
-		painelDeGuias.addTab("Potássio", null, txtSulfPotMag, null);
-		txtSulfPotMag.setLayout(null);
+		
+		JPanel guiaPotassio = new JPanel();
+		painelDeGuias.addTab("Potássio", null, guiaPotassio, null);
+		guiaPotassio.setLayout(null);
 		
 		txtCorrecorecuperacaoDePotassio = new JTextField();
 		txtCorrecorecuperacaoDePotassio.setText("Correção/Recuperação de POTÁSSIO");
@@ -812,46 +858,46 @@ public class PaginaPrincipal {
 		txtCorrecorecuperacaoDePotassio.setColumns(10);
 		txtCorrecorecuperacaoDePotassio.setBackground(Color.YELLOW);
 		txtCorrecorecuperacaoDePotassio.setBounds(10, 11, 855, 30);
-		txtSulfPotMag.add(txtCorrecorecuperacaoDePotassio);
+		guiaPotassio.add(txtCorrecorecuperacaoDePotassio);
 		
 		JLabel lbl_CTC_Atual = new JLabel("Participação atual do POTÁSSIO na CTC do solo:");
 		lbl_CTC_Atual.setBounds(10, 52, 260, 14);
-		txtSulfPotMag.add(lbl_CTC_Atual);
+		guiaPotassio.add(lbl_CTC_Atual);
 		
 		JLabel lbl_CTC_Desejada = new JLabel("Participação do Potássio na CTC, desejada: ");
 		lbl_CTC_Desejada.setBounds(10, 77, 260, 14);
-		txtSulfPotMag.add(lbl_CTC_Desejada);
+		guiaPotassio.add(lbl_CTC_Desejada);
 		
 		JLabel lbl_3 = new JLabel("Participação do POTÁSSIO na CTC, após correção:");
 		lbl_3.setBounds(10, 102, 290, 14);
-		txtSulfPotMag.add(lbl_3);
+		guiaPotassio.add(lbl_3);
 		
 		textField_Potassio_CTC_Atual = new JTextField();
 		textField_Potassio_CTC_Atual.setEditable(false);
 		textField_Potassio_CTC_Atual.setBounds(300, 49, 86, 20);
-		txtSulfPotMag.add(textField_Potassio_CTC_Atual);
+		guiaPotassio.add(textField_Potassio_CTC_Atual);
 		textField_Potassio_CTC_Atual.setColumns(10);
 		
 		textField_Potassio_CTC_Desejada = new JTextField();
 		textField_Potassio_CTC_Desejada.setColumns(10);
 		textField_Potassio_CTC_Desejada.setBounds(300, 74, 86, 20);
-		txtSulfPotMag.add(textField_Potassio_CTC_Desejada);
+		guiaPotassio.add(textField_Potassio_CTC_Desejada);
 		
 		textField_Potassio_CTC_Corrigido = new JTextField();
 		textField_Potassio_CTC_Corrigido.setEditable(false);
 		textField_Potassio_CTC_Corrigido.setColumns(10);
 		textField_Potassio_CTC_Corrigido.setBounds(300, 99, 86, 20);
-		txtSulfPotMag.add(textField_Potassio_CTC_Corrigido);
+		guiaPotassio.add(textField_Potassio_CTC_Corrigido);
 		
 		lbl_CTC_Ideal = new JLabel("Participação ideal do Potássio na CTC:");
 		lbl_CTC_Ideal.setBounds(396, 77, 234, 14);
-		txtSulfPotMag.add(lbl_CTC_Ideal);
+		guiaPotassio.add(lbl_CTC_Ideal);
 		
 		textField_Potassio_CTC_Ideal = new JTextField();
 		textField_Potassio_CTC_Ideal.setEditable(false);
 		textField_Potassio_CTC_Ideal.setColumns(10);
 		textField_Potassio_CTC_Ideal.setBounds(640, 74, 86, 20);
-		txtSulfPotMag.add(textField_Potassio_CTC_Ideal);
+		guiaPotassio.add(textField_Potassio_CTC_Ideal);
 		
 		txtFontesDePotassio = new JTextField();
 		txtFontesDePotassio.setText("Fontes de POTÁSSIO");
@@ -861,67 +907,67 @@ public class PaginaPrincipal {
 		txtFontesDePotassio.setColumns(10);
 		txtFontesDePotassio.setBackground(Color.YELLOW);
 		txtFontesDePotassio.setBounds(10, 178, 855, 30);
-		txtSulfPotMag.add(txtFontesDePotassio);
+		guiaPotassio.add(txtFontesDePotassio);
 		
 		lbl_Potassio_QuantidadeAAplicar = new JLabel("Quantidade a aplicar:");
 		lbl_Potassio_QuantidadeAAplicar.setBounds(10, 150, 150, 14);
-		txtSulfPotMag.add(lbl_Potassio_QuantidadeAAplicar);
+		guiaPotassio.add(lbl_Potassio_QuantidadeAAplicar);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(170, 147, 86, 20);
-		txtSulfPotMag.add(textField_1);
+		textField_quantidadeAAplicarFosforo = new JTextField();
+		textField_quantidadeAAplicarFosforo.setEditable(false);
+		textField_quantidadeAAplicarFosforo.setColumns(10);
+		textField_quantidadeAAplicarFosforo.setBounds(170, 147, 86, 20);
+		guiaPotassio.add(textField_quantidadeAAplicarFosforo);
 		
 		lblKhHectareMedida = new JLabel("kh/hectare");
 		lblKhHectareMedida.setBounds(266, 150, 70, 14);
-		txtSulfPotMag.add(lblKhHectareMedida);
+		guiaPotassio.add(lblKhHectareMedida);
 		
 		lbl_Custo_Rs_Ha = new JLabel("Custo - R$/ha:");
 		lbl_Custo_Rs_Ha.setBounds(396, 150, 150, 14);
-		txtSulfPotMag.add(lbl_Custo_Rs_Ha);
+		guiaPotassio.add(lbl_Custo_Rs_Ha);
 		
 		textField_Custo_Rs_Ha_Resposta = new JTextField();
 		textField_Custo_Rs_Ha_Resposta.setEditable(false);
 		textField_Custo_Rs_Ha_Resposta.setColumns(10);
 		textField_Custo_Rs_Ha_Resposta.setBounds(556, 147, 86, 20);
-		txtSulfPotMag.add(textField_Custo_Rs_Ha_Resposta);
+		guiaPotassio.add(textField_Custo_Rs_Ha_Resposta);
 		
 		lblFonte_3 = new JLabel("Fonte");
 		lblFonte_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFonte_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFonte_3.setBounds(10, 219, 125, 14);
-		txtSulfPotMag.add(lblFonte_3);
+		guiaPotassio.add(lblFonte_3);
 		
 		lblValortonr_3 = new JLabel("Valor/Ton. (R$)");
 		lblValortonr_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValortonr_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValortonr_3.setBounds(145, 219, 125, 14);
-		txtSulfPotMag.add(lblValortonr_3);
+		guiaPotassio.add(lblValortonr_3);
 		
 		lblFonte_4 = new JLabel("Fonte");
 		lblFonte_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFonte_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFonte_4.setBounds(280, 219, 125, 14);
-		txtSulfPotMag.add(lblFonte_4);
+		guiaPotassio.add(lblFonte_4);
 		
 		lblValortonr_4 = new JLabel("Valor/Ton. (R$)");
 		lblValortonr_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValortonr_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValortonr_4.setBounds(415, 219, 125, 14);
-		txtSulfPotMag.add(lblValortonr_4);
+		guiaPotassio.add(lblValortonr_4);
 		
 		lblFonte_5 = new JLabel("Fonte");
 		lblFonte_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFonte_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFonte_5.setBounds(550, 219, 125, 14);
-		txtSulfPotMag.add(lblFonte_5);
+		guiaPotassio.add(lblFonte_5);
 		
 		lblValortonr_5 = new JLabel("Valor/Ton. (R$)");
 		lblValortonr_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValortonr_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValortonr_5.setBounds(685, 219, 125, 14);
-		txtSulfPotMag.add(lblValortonr_5);
+		guiaPotassio.add(lblValortonr_5);
 		
 		txtCloreto = new JTextField();
 		txtCloreto.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -929,12 +975,12 @@ public class PaginaPrincipal {
 		txtCloreto.setEditable(false);
 		txtCloreto.setColumns(10);
 		txtCloreto.setBounds(10, 244, 125, 20);
-		txtSulfPotMag.add(txtCloreto);
+		guiaPotassio.add(txtCloreto);
 		
 		txtCloreto_Resposta = new JTextField();
 		txtCloreto_Resposta.setColumns(10);
 		txtCloreto_Resposta.setBounds(145, 244, 125, 20);
-		txtSulfPotMag.add(txtCloreto_Resposta);
+		guiaPotassio.add(txtCloreto_Resposta);
 		
 		txtSulfato = new JTextField();
 		txtSulfato.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -942,12 +988,12 @@ public class PaginaPrincipal {
 		txtSulfato.setEditable(false);
 		txtSulfato.setColumns(10);
 		txtSulfato.setBounds(280, 244, 125, 20);
-		txtSulfPotMag.add(txtSulfato);
+		guiaPotassio.add(txtSulfato);
 		
 		txtSulfato_Resposta = new JTextField();
 		txtSulfato_Resposta.setColumns(10);
 		txtSulfato_Resposta.setBounds(415, 244, 125, 20);
-		txtSulfPotMag.add(txtSulfato_Resposta);
+		guiaPotassio.add(txtSulfato_Resposta);
 		
 		txtSulfpotssiomag = new JTextField();
 		txtSulfpotssiomag.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -955,17 +1001,24 @@ public class PaginaPrincipal {
 		txtSulfpotssiomag.setEditable(false);
 		txtSulfpotssiomag.setColumns(10);
 		txtSulfpotssiomag.setBounds(550, 244, 125, 20);
-		txtSulfPotMag.add(txtSulfpotssiomag);
+		guiaPotassio.add(txtSulfpotssiomag);
 		
 		txtSulfPotMag_Resposta = new JTextField();
 		txtSulfPotMag_Resposta.setColumns(10);
 		txtSulfPotMag_Resposta.setBounds(685, 244, 125, 20);
-		txtSulfPotMag.add(txtSulfPotMag_Resposta);
+		guiaPotassio.add(txtSulfPotMag_Resposta);
 		
 		JButton btnCalcular_2 = new JButton("Calcular");
+		btnCalcular_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Botão funcionando Guia Potássio, apagando textos input e adicionando texto nos JTextFields sem input");
+				func3.ApagaBotoes(PaginaPrincipal.this);
+				func3.PreencheBotoes(PaginaPrincipal.this);		
+			}
+		});
 		btnCalcular_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCalcular_2.setBounds(710, 306, 100, 23);
-		txtSulfPotMag.add(btnCalcular_2);
+		guiaPotassio.add(btnCalcular_2);
 		
 		JPanel guiaCalcioMagnesio = new JPanel();
 		painelDeGuias.addTab("Cálcio e Magnésio", null, guiaCalcioMagnesio, null);
@@ -1321,8 +1374,138 @@ public class PaginaPrincipal {
 		guiaCalcioMagnesio.add(txt_Ideal_resp);
 		
 		JButton btnCalcular_3 = new JButton("Calcular");
+		btnCalcular_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Botão funcionando Guia Cálcio e Magnésio, apagando textos input e adicionando texto nos JTextFields sem input");
+				func4.ApagaBotoes(PaginaPrincipal.this);
+				func4.PreencheBotoes(PaginaPrincipal.this);		
+			}
+		});
 		btnCalcular_3.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCalcular_3.setBounds(740, 475, 100, 23);
 		guiaCalcioMagnesio.add(btnCalcular_3);
 	}
+
+	
+	
+	public JTextField getTextField(JTextField texto) {
+		return texto;
+	}
+
+	public List<JTextField> getTextFieldsComInputUsuárioGuiaValoresIdeais() {
+		listaComInputValoresIdeais.add(textFieldNoSoloFosforo);
+		listaComInputValoresIdeais.add(textFieldNoSoloPotassio);
+		listaComInputValoresIdeais.add(textFieldNoSoloCalcio);
+		listaComInputValoresIdeais.add(textFieldNoSoloMagnesio);
+		listaComInputValoresIdeais.add(textFieldNoSoloEnxofre);
+		listaComInputValoresIdeais.add(textFieldNoSoloAluminio);
+		listaComInputValoresIdeais.add(textFieldNoSoloHAL);
+		listaComInputValoresIdeais.add(textFieldMOGdm3_1);
+		listaComInputValoresIdeais.add(textFieldMOGdm3_3);
+		listaComInputValoresIdeais.add(textFieldMOGdm3_5);
+		return listaComInputValoresIdeais;
+	}
+
+	public List<JTextField> getTextFieldsSemInputUsuárioGuiaValoresIdeais() {
+		listaSemInputValoresIdeais.add(textFieldIdealFosforo);
+		listaSemInputValoresIdeais.add(textFieldIdealPotassio);
+		listaSemInputValoresIdeais.add(textFieldIdealCalcio);
+		listaSemInputValoresIdeais.add(textFieldIdealMagnesio);
+		listaSemInputValoresIdeais.add(textFieldIdealEnxofre);
+		listaSemInputValoresIdeais.add(textFieldIdealAluminio);
+		listaSemInputValoresIdeais.add(textFieldAposCorrecaoFosforo);
+		listaSemInputValoresIdeais.add(textFieldAposCorrecaoPotassio);
+		listaSemInputValoresIdeais.add(textFieldAposCorrecaoCalcio);
+		listaSemInputValoresIdeais.add(textFieldAposCorrecaoMagnesio);
+		listaSemInputValoresIdeais.add(textFieldSCmol);
+		listaSemInputValoresIdeais.add(textFieldCTCMol);
+		listaSemInputValoresIdeais.add(textFieldVPorcentoAtual);
+		listaSemInputValoresIdeais.add(textFieldMOGdm3_2);
+		listaSemInputValoresIdeais.add(textFieldMOGdm3_4);
+		listaSemInputValoresIdeais.add(textFieldMOGdm3_Resultado_1);
+		listaSemInputValoresIdeais.add(textFieldMOPorcento_Resultado);
+		listaSemInputValoresIdeais.add(textFieldCarbono_Resultado);
+		listaSemInputValoresIdeais.add(textFieldTeorIdealMO);
+		return listaSemInputValoresIdeais;
+	}
+	
+	public List<JTextField> getTextFieldComInputUsuarioGuiaFosforo(){
+		listaComInputFosforo.add(textFieldTeorDeFosforoAAtingir);
+		listaComInputFosforo.add(textFieldFonteDeFosforoAAplicar);
+		listaComInputFosforo.add(textFieldEficienciaDoFosforo);
+		listaComInputFosforo.add(textField_Valor_Superfosfato_Simples);
+		listaComInputFosforo.add(textField_Valor_Superfosfato_Triplo);
+		listaComInputFosforo.add(textField_Valor_Map);
+		listaComInputFosforo.add(textField_Valor_DAP);
+		listaComInputFosforo.add(textField_Valor_Yoorin);
+		listaComInputFosforo.add(textField_Valor_Fosfato_Arad);
+		listaComInputFosforo.add(textField_Valor_Fosfato_Gafsa);
+		listaComInputFosforo.add(textField_Valor_Fosfato_Daoui);
+		listaComInputFosforo.add(textField_Valor_Fosfato_PatoMinas);
+		listaComInputFosforo.add(textField_Valor_EscoriaDeThomas);
+		listaComInputFosforo.add(textField_Valor_AcidoFosforico);
+		listaComInputFosforo.add(textField_Valor_MultifMagnesiano);
+		return listaComInputFosforo;
+	}
+	
+	public List<JTextField> getTextFieldSemInputUsuarioGuiaFosforo(){
+		listaSemInputFosforo.add(textFieldTipoSuperosfato);
+		listaSemInputFosforo.add(textFieldValor_Resposta_1);
+		listaSemInputFosforo.add(textFieldEnxofreOuMagnesio);
+		listaSemInputFosforo.add(textFieldValor_Resoposta_2);
+		listaSemInputFosforo.add(textCalcioOuNitroGenio);
+		listaSemInputFosforo.add(textFieldQuantidadeAAplicar);
+		listaSemInputFosforo.add(textFieldCustoRSHa_Resposta);
+		return listaSemInputFosforo;
+	}
+	
+	public List<JTextField> getTextFieldComInputUsuarioGuiaPotassio(){
+		listaComInputPotassio.add(textField_Potassio_CTC_Desejada);
+		listaComInputPotassio.add(txtCloreto_Resposta);
+		listaComInputPotassio.add(txtSulfato_Resposta);
+		listaComInputPotassio.add(txtSulfPotMag_Resposta);
+		return listaComInputPotassio;
+	}
+	
+	public List<JTextField> getTextFieldSemInputUsuarioGuiaPotassio(){
+		listaSemInputPotassio.add(textField_Potassio_CTC_Atual);
+		listaSemInputPotassio.add(textField_Potassio_CTC_Ideal);
+		listaSemInputPotassio.add(textField_Potassio_CTC_Corrigido);
+		listaSemInputPotassio.add(textField_quantidadeAAplicarFosforo);
+		listaSemInputPotassio.add(textField_Custo_Rs_Ha_Resposta);
+		return listaSemInputPotassio;
+	}
+	
+	public List<JTextField> getTextFieldComInputUsuarioGuiaCalcioMagnesio(){
+		listaComInputCalcioMagnesio.add(txtCalcio_Desejado_Resposta);
+		listaComInputCalcioMagnesio.add(txt_FonteCorretivoUsar_Resposta);
+		listaComInputCalcioMagnesio.add(txt_PRNT_resposta);
+		listaComInputCalcioMagnesio.add(txt_TeorCAO_Resposta);
+		listaComInputCalcioMagnesio.add(txt_Calcario_Dolomitico_Resposta);
+		listaComInputCalcioMagnesio.add(txt_Calcario_Calcidico_Resposta);
+		listaComInputCalcioMagnesio.add(txt_Calcario_Conca_Resposta);
+		listaComInputCalcioMagnesio.add(txt_Gesso_Resposta);
+		listaComInputCalcioMagnesio.add(txt_HidroxidoCalcio_Resposta);
+		listaComInputCalcioMagnesio.add(txt_Calcario_Magnesiano_Resposta);
+		return listaComInputCalcioMagnesio;
+	}
+	public List<JTextField> getTextFieldSemInputUsuarioGuiaCalcioMagnesio(){
+		listaSemInputCalcioMagnesio.add(txtCalcio_ParticipaoAtualCTCSolo);
+		listaSemInputCalcioMagnesio.add(txtCalcio_Ideal);
+		listaSemInputCalcioMagnesio.add(txtCalcio_AposCorrecoes);
+		listaSemInputCalcioMagnesio.add(txtMagnesio_ParticipaoAtualCTCSolo);
+		listaSemInputCalcioMagnesio.add(txtMagnesio_Ideal);
+		listaSemInputCalcioMagnesio.add(txtMagnesio_AposCorrecoes);
+		listaSemInputCalcioMagnesio.add(txt_QuantidadeAAplicar_TONHa);
+		listaSemInputCalcioMagnesio.add(textField_Atual_Resposta);
+		listaSemInputCalcioMagnesio.add(textField_AposCorrecoes);
+		listaSemInputCalcioMagnesio.add(txt_Ideal_resp);
+		return listaSemInputCalcioMagnesio;
+	}
+	
+	
+	
+	
+
+
 }
