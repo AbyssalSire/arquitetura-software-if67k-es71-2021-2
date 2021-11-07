@@ -1,5 +1,5 @@
 package componentesView.correcaoEFontesNutrientes;
 
-public class TextFields {
+public class ManipulaçãoECalculoTextFields {
 
 }

@@ -1,5 +1,5 @@
 package componentesView.correcaoEFontesNutrientes.potassio;
 
-public class TextFields {
+public class ManipulaçãoECalculoTextFields {
 
 }
