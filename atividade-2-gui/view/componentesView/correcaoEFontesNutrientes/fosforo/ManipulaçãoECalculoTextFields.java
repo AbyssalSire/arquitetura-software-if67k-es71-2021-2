@@ -1,5 +1,5 @@
 package componentesView.correcaoEFontesNutrientes.fosforo;
 
-public class TextFields {
+public class ManipulaçãoECalculoTextFields {
 
 }

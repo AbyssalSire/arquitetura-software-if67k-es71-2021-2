@@ -26,7 +26,7 @@ public class BotaoFosforo implements EventListener{
         this.lista = pg.getTextFieldSemInputUsuarioGuiaFosforo();
         for (int i = 0; i < lista.size(); i++) {
         	this.texto = pg.getTextField(lista.get(i));
-        texto.setText("Botão funcionou");
+        texto.setText("Botão funcionou, guia Fósforo!");
         } 	
     }
 }

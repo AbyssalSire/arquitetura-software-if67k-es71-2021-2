@@ -26,7 +26,7 @@ public class BotaoValoresIdeais implements EventListener{
         this.lista = pg.getTextFieldsSemInputUsuárioGuiaValoresIdeais();
         for (int i = 0; i < lista.size(); i++) {
         	this.texto = pg.getTextField(lista.get(i));
-        texto.setText("Botão funcionou");
+        texto.setText("Botão funcionou, guia Valores Ideais!");
         } 	
     }
 }
