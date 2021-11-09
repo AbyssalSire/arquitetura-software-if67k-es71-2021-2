@@ -2,6 +2,29 @@
 
 ## Atividade #2 - Desenvolvimento de GUI
 
+### Lista de telas:
+
+#### Página de cálculo de valores ideais:
+![image](https://user-images.githubusercontent.com/40677401/141005937-0d7bbcd8-6c4c-437b-b3ac-6ad0ae3611d8.png)
+
+
+#### Página de cálculo de recuperação/correção e fonte de Fósforo
+![image](https://user-images.githubusercontent.com/40677401/141006118-8fec89c5-2fab-4b9a-9e70-d5d3f659e729.png)
+
+
+#### Página de cálculo de recuperação/correção e fonte de Potássio
+![image](https://user-images.githubusercontent.com/40677401/141006141-f08ace2e-2ca1-43ee-94cb-e98019e0435f.png)
+
+
+#### Página de cálculo de recuperação/correção e fonte de Cálcio e Magnésio
+![image](https://user-images.githubusercontent.com/40677401/141006171-90028d7b-8041-49d7-87b9-e0c4c1e65e8c.png)
+
+
+#### Testes realizados com JUnit5:
+![image](https://user-images.githubusercontent.com/40677401/141006389-819319f5-33ce-4f9f-9d07-9a75b2576842.png)
+
+
+
 ### Proposta: 
 
 > #### INTRODUÇÃO
@@ -48,18 +71,14 @@
 
 ### Explicação da arquitetura:
 
-A estruturação básica foi feita pensando em como projetos web em que trabalhei são montados, utilizando de componentes.
+A estruturação final foi decidida por apresentar um arquivo principal chamado de PaginaPrincipal.java onde ficarão 4 guias distintas para cada uma das funcionalidades do projeto, sendo elas: Cálculo de Valores Ideais, Cálculo de Recuperação/Correção e Fontes dos nutrientes Fósforo, Potássio e Cálcio e Magnésio (com os ultimos dois em uma única página, pela documentação da proposta).
 
-A pasta principal será a /view/, nela será inserida a tela principal, esta tela principal utilizará os componentes do pacote /componentesView/.
+Todo o conteúdo visual e estrutural das guias está no arquivo da página principal com as funcionalidades dos botões e dos campos de input/output sendo alocadas para pacotes exclusivos de cada nutriente. Para explicações da lágica de evolução do projeto, por favor verificar os commits.
 
-
-Dentro de /componentesView/ teremos 3 pacotes, /componentesGenericos/, /correcaoEFontesNutrientes/ e /valoresIdeais/. O pacote de componentes genéricos deverá conter possíveis componentes que serão utilizados tanto em /correcaoEFontesNutrientes/ e /valoresIdeais/. 
-
-O pacote /valoresIdeais/ deverá conter os componentes necessários para a criação dos componentes que serão encaixado na tela principal da view e que deverão gerar os valores ideais para cada um dos nutrientes, também há um pacote de componentes para possíveis componentes utilizados na composição desta funcionalidade.
-
-O pacote /correcaoEFontesNutrientes/ segue uma estrutura similar, mas com 4 subpacotes em seu interior. O primeiro está relacionado a /componentesGenericos/ que pocerão ser utilizados em qualquer um dos outros pacotes que representam os elementos utilizados na planilha de correção de solos, sendo eles *cálcio e magnésio*, *fósforo* e *potássio*, cada um destes deverão cumprir as funções de correção/recuperação assim como a conversão para as respectivas unidades de medidas além de geraros valores das fontes. 
-
-Os três pacotes referentes a elementos possuem a mesma estrutura de conter o elemento principal dentro dele e um subpacote de componentes para melhor visualização e organização em caso de haver diversos componentes a serem utilizados no elemento.
+### Nota: 8/10
 
 
-### Nota: ?/10
+#### Comentários do professor
+>	Bom trabalho, Lucas. Infelizmente, a documentação não contém as telas, nem instruções de execução. O projeto não usa o Maven, o gerenciador de build usado no projeto original. Dessa forma, não consegui compilar e executar localmente. Como consequência, não consigo ver se a GUI está funcional.
+>
+>A organização da arquitetura está boa, e você usou alguns princípios de reuso. Os testes ainda deixam a desejar e sugiro que você se aprofunde nisso em uma próxima oportunidade.
