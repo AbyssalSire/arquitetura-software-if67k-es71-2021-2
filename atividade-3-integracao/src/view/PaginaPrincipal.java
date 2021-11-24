@@ -1420,7 +1420,7 @@ public class PaginaPrincipal {
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(null, "Botão funcionando guia Valores Ideais, apagando textos input e adicionando texto nos JTextFields sem input");
-				func1.ApagaBotoes(PaginaPrincipal.this);
+				func1.CalculaIdeal(PaginaPrincipal.this);
 				//func1.PreencheBotoes(PaginaPrincipal.this);				
 			}
 		});
@@ -1469,6 +1469,7 @@ public class PaginaPrincipal {
 	}
 
 	public List<JTextField> getTextFieldsSemInputUsuárioGuiaValoresIdeais() {
+		textFieldTipoDeSolo.setText(tipoTerreno.getSelectedItem().toString());
 		listaSemInputValoresIdeais.add(textFieldIdealFosforo);
 		listaSemInputValoresIdeais.add(textFieldIdealPotassio);
 		listaSemInputValoresIdeais.add(textFieldIdealCalcio);
