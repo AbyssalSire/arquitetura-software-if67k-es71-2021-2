@@ -54,11 +54,6 @@ public class PaginaPrincipal {
 	private JTextField textFieldCTCMol;
 	private JTextField textFieldVPorcentoAtual;
 	private JTextField textFieldMOGdm3_1;
-	private JTextField textFieldMOGdm3_2;
-	private JTextField textFieldMOGdm3_3;
-	private JTextField textFieldMOGdm3_4;
-	private JTextField textFieldMOGdm3_5;
-	private JTextField textFieldMOGdm3_Resultado_1;
 	private JTextField textFieldMOPorcento_Resultado;
 	private JTextField textFieldCarbono_Resultado;
 	private JTextField textFieldTeorIdealMO;
@@ -1355,64 +1350,38 @@ public class PaginaPrincipal {
 		guiaValoresIdeais.add(textFieldMOGdm3_1);
 		textFieldMOGdm3_1.setColumns(10);
 		
-		textFieldMOGdm3_2 = new JTextField();
-		textFieldMOGdm3_2.setEditable(false);
-		textFieldMOGdm3_2.setBounds(204, 187, 100, 20);
-		guiaValoresIdeais.add(textFieldMOGdm3_2);
-		textFieldMOGdm3_2.setColumns(10);
-		
-		textFieldMOGdm3_3 = new JTextField();
-		textFieldMOGdm3_3.setBounds(304, 187, 100, 20);
-		guiaValoresIdeais.add(textFieldMOGdm3_3);
-		textFieldMOGdm3_3.setColumns(10);
-		
-		textFieldMOGdm3_4 = new JTextField();
-		textFieldMOGdm3_4.setEditable(false);
-		textFieldMOGdm3_4.setBounds(404, 187, 100, 20);
-		guiaValoresIdeais.add(textFieldMOGdm3_4);
-		textFieldMOGdm3_4.setColumns(10);
-		
-		textFieldMOGdm3_5 = new JTextField();
-		textFieldMOGdm3_5.setBounds(504, 187, 100, 20);
-		guiaValoresIdeais.add(textFieldMOGdm3_5);
-		textFieldMOGdm3_5.setColumns(10);
-		
-		textFieldMOGdm3_Resultado_1 = new JTextField();
-		textFieldMOGdm3_Resultado_1.setEditable(false);
-		textFieldMOGdm3_Resultado_1.setColumns(10);
-		textFieldMOGdm3_Resultado_1.setBounds(104, 218, 100, 20);
-		guiaValoresIdeais.add(textFieldMOGdm3_Resultado_1);
-		
 		textFieldMOPorcento_Resultado = new JTextField();
 		textFieldMOPorcento_Resultado.setEditable(false);
 		textFieldMOPorcento_Resultado.setColumns(10);
-		textFieldMOPorcento_Resultado.setBounds(304, 218, 100, 20);
+		textFieldMOPorcento_Resultado.setBounds(324, 187, 100, 20);
 		guiaValoresIdeais.add(textFieldMOPorcento_Resultado);
 		
 		textFieldCarbono_Resultado = new JTextField();
 		textFieldCarbono_Resultado.setEditable(false);
 		textFieldCarbono_Resultado.setColumns(10);
-		textFieldCarbono_Resultado.setBounds(504, 218, 100, 20);
+		textFieldCarbono_Resultado.setBounds(552, 187, 226, 20);
 		guiaValoresIdeais.add(textFieldCarbono_Resultado);
 		
 		JLabel lblNewLabel_1 = new JLabel("Teor ideal de M.O.:");
-		lblNewLabel_1.setBounds(374, 265, 130, 14);
+		lblNewLabel_1.setBounds(452, 217, 130, 14);
 		guiaValoresIdeais.add(lblNewLabel_1);
 		
 		textFieldTeorIdealMO = new JTextField();
+		textFieldTeorIdealMO.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textFieldTeorIdealMO.setText("3,0 a 4,0%");
 		textFieldTeorIdealMO.setEditable(false);
-		textFieldTeorIdealMO.setBounds(504, 262, 100, 20);
+		textFieldTeorIdealMO.setBounds(592, 218, 100, 20);
 		guiaValoresIdeais.add(textFieldTeorIdealMO);
 		textFieldTeorIdealMO.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("M.O. %");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(204, 221, 100, 14);
+		lblNewLabel.setBounds(210, 190, 100, 14);
 		guiaValoresIdeais.add(lblNewLabel);
 		
 		JLabel lblCarbono = new JLabel("Carbono");
 		lblCarbono.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCarbono.setBounds(404, 221, 100, 14);
+		lblCarbono.setBounds(442, 190, 100, 14);
 		guiaValoresIdeais.add(lblCarbono);
 		
 //		descomentar após testes	para voltar ao estado original	
@@ -1436,13 +1405,13 @@ public class PaginaPrincipal {
 		guiaValoresIdeais.add(tipoTerreno);
 		
 		JLabel lblNewLabel_3 = new JLabel("Tipo de terreno");
-		lblNewLabel_3.setBounds(310, 305, 100, 14);
+		lblNewLabel_3.setBounds(520, 305, 100, 14);
 		guiaValoresIdeais.add(lblNewLabel_3);
 		
 		textFieldTipoDeSolo = new JTextField();
 		textFieldTipoDeSolo.setEditable(false);
 		textFieldTipoDeSolo.setColumns(10);
-		textFieldTipoDeSolo.setBounds(410, 302, 100, 20);
+		textFieldTipoDeSolo.setBounds(621, 329, 109, 20);
 		guiaValoresIdeais.add(textFieldTipoDeSolo);
 	}
 
@@ -1456,20 +1425,20 @@ public class PaginaPrincipal {
 		textFieldTipoDeSolo.setText(tipoTerreno.getSelectedItem().toString());
 		listaComInputValoresIdeais.add(textFieldTipoDeSolo);	
 		listaComInputValoresIdeais.add(textFieldNoSoloFosforo);
-		listaComInputValoresIdeais.add(textFieldNoSoloPotassio);
-		listaComInputValoresIdeais.add(textFieldNoSoloCalcio);
-		listaComInputValoresIdeais.add(textFieldNoSoloMagnesio);
-		listaComInputValoresIdeais.add(textFieldNoSoloEnxofre);
-		listaComInputValoresIdeais.add(textFieldNoSoloAluminio);
-		listaComInputValoresIdeais.add(textFieldNoSoloHAL);
-		listaComInputValoresIdeais.add(textFieldMOGdm3_1);
-		listaComInputValoresIdeais.add(textFieldMOGdm3_3);
-		listaComInputValoresIdeais.add(textFieldMOGdm3_5);	
+		listaComInputValoresIdeais.add(textFieldNoSoloPotassio); //2
+		listaComInputValoresIdeais.add(textFieldNoSoloCalcio);//3
+		listaComInputValoresIdeais.add(textFieldNoSoloMagnesio);//4
+		listaComInputValoresIdeais.add(textFieldNoSoloEnxofre);//5
+		listaComInputValoresIdeais.add(textFieldNoSoloAluminio);//6
+		listaComInputValoresIdeais.add(textFieldNoSoloHAL);//7
+		listaComInputValoresIdeais.add(textFieldMOGdm3_1);//8
+		//listaComInputValoresIdeais.add(textFieldMOGdm3_3);
+		//listaComInputValoresIdeais.add(textFieldMOGdm3_5);	
 		return listaComInputValoresIdeais;
 	}
 
 	public List<JTextField> getTextFieldsSemInputUsuárioGuiaValoresIdeais() {
-		textFieldTipoDeSolo.setText(tipoTerreno.getSelectedItem().toString());
+		//textFieldTipoDeSolo.setText(tipoTerreno.getSelectedItem().toString());
 		listaSemInputValoresIdeais.add(textFieldIdealFosforo);
 		listaSemInputValoresIdeais.add(textFieldIdealPotassio);
 		listaSemInputValoresIdeais.add(textFieldIdealCalcio);
@@ -1480,14 +1449,14 @@ public class PaginaPrincipal {
 		listaSemInputValoresIdeais.add(textFieldAposCorrecaoPotassio);
 		listaSemInputValoresIdeais.add(textFieldAposCorrecaoCalcio);
 		listaSemInputValoresIdeais.add(textFieldAposCorrecaoMagnesio);
-		listaSemInputValoresIdeais.add(textFieldSCmol);
-		listaSemInputValoresIdeais.add(textFieldCTCMol);
-		listaSemInputValoresIdeais.add(textFieldVPorcentoAtual);
-		listaSemInputValoresIdeais.add(textFieldMOGdm3_2);
-		listaSemInputValoresIdeais.add(textFieldMOGdm3_4);
-		listaSemInputValoresIdeais.add(textFieldMOGdm3_Resultado_1);
-		listaSemInputValoresIdeais.add(textFieldMOPorcento_Resultado);
-		listaSemInputValoresIdeais.add(textFieldCarbono_Resultado);
+		listaSemInputValoresIdeais.add(textFieldSCmol);//10
+		listaSemInputValoresIdeais.add(textFieldCTCMol);//11
+		listaSemInputValoresIdeais.add(textFieldVPorcentoAtual);//12
+		//listaSemInputValoresIdeais.add(textFieldMOGdm3_2);
+		//listaSemInputValoresIdeais.add(textFieldMOGdm3_4);
+		//listaSemInputValoresIdeais.add(textFieldMOGdm3_Resultado_1);
+		listaSemInputValoresIdeais.add(textFieldMOPorcento_Resultado);//13
+		listaSemInputValoresIdeais.add(textFieldCarbono_Resultado);//14
 		listaSemInputValoresIdeais.add(textFieldTeorIdealMO);
 		return listaSemInputValoresIdeais;
 	}

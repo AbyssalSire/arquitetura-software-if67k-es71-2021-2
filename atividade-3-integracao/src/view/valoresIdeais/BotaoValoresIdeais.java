@@ -40,6 +40,7 @@ public class BotaoValoresIdeais implements EventListener{
         this.listaTextFieldsSemInputUsuárioGuiaValoresIdeais = pg.getTextFieldsSemInputUsuárioGuiaValoresIdeais();
         System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso"));
         
+        //Calcula valores ideais para tipo de solo
         if(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso")) {
         	NutrientesCTC idealArgiloso = TexturaSolo.ARGILOSO.calculaValorIdeal();
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(0).setText(Double.toString(idealArgiloso.fosforo()));
@@ -57,6 +58,39 @@ public class BotaoValoresIdeais implements EventListener{
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(4).setText(Double.toString(idealTextura_Media.enxofre()));
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(5).setText(Double.toString(idealTextura_Media.aluminioHidrogenio()));
         }
+        
+        //Calcula S mol, CTC mol, V porcentual MO% e Carbono
+        
+        double SCmol = new EquilibrioCorrecaoCTC().
+        		calculaSCmol(
+        				Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(2).getText()), 
+        				Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(3).getText()), 
+        				Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(4).getText())
+        				);
+        
+        double CTCCmol = new EquilibrioCorrecaoCTC().
+				calculaCTCCmol(
+						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(2).getText()), 
+						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(3).getText()), 
+						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(4).getText()),						
+						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(7).getText())
+						);
+        System.out.println(CTCCmol);
+        double vPorcentual = new EquilibrioCorrecaoCTC().calculaVPercentual(SCmol, CTCCmol);
+        
+        double moPercentual = new EquilibrioCorrecaoCTC().calculaMOPercentual(Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(8).getText()));
+        
+        double carbono = new EquilibrioCorrecaoCTC().calculaCarbono(moPercentual);
+        
+        
+        System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(8).getText());
+        
+        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(10).setText(Double.toString(SCmol));
+        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(11).setText(Double.toString(CTCCmol));
+        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(12).setText(Double.toString(vPorcentual));
+        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(13).setText(Double.toString(moPercentual));
+        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(14).setText(Double.toString(carbono));
+        
         
         
     }

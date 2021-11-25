@@ -190,12 +190,12 @@ public class TestaValoresIdeais {
         @Test
         public void testaCalculaSCmol() {
                 assertEquals(7.54, new EquilibrioCorrecaoCTC().calculaSCmol(0.15, 5.76, 1.63));
-
         }
 
         @Test
         public void testaCalculaCTCCmol() {
-                assertEquals(12.89, new EquilibrioCorrecaoCTC().calculaCTCCmol(0.15, 5.76, 1.63, 5.35));
+               assertEquals(12.89, new EquilibrioCorrecaoCTC().calculaCTCCmol(0.15, 5.76, 1.63, 5.35));
+                
         }
 
         @Test
