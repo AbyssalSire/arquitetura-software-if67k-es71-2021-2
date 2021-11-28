@@ -8,28 +8,27 @@ Todas as telas foram montadas o mais parecido possível com a planilha original 
 
 
 #### Página de cálculo de valores ideais:
-![image](https://user-images.githubusercontent.com/40677401/141005937-0d7bbcd8-6c4c-437b-b3ac-6ad0ae3611d8.png)
-
+![image](https://user-images.githubusercontent.com/40677401/143790740-439dca20-e62f-4786-973b-9099ef3c1c22.png)
 
 #### Página de cálculo de recuperação/correção e fonte de Fósforo
-![image](https://user-images.githubusercontent.com/40677401/141006118-8fec89c5-2fab-4b9a-9e70-d5d3f659e729.png)
+![image](https://user-images.githubusercontent.com/40677401/143790751-6ff1b4c3-991d-4e46-9f90-5bc4acb2d681.png)
 
 
 #### Página de cálculo de recuperação/correção e fonte de Potássio
-![image](https://user-images.githubusercontent.com/40677401/141006141-f08ace2e-2ca1-43ee-94cb-e98019e0435f.png)
+![image](https://user-images.githubusercontent.com/40677401/143790757-6abdc375-8c85-4f5d-82a2-f8ac89c71633.png)
 
 
 #### Página de cálculo de recuperação/correção e fonte de Cálcio e Magnésio
-![image](https://user-images.githubusercontent.com/40677401/141006171-90028d7b-8041-49d7-87b9-e0c4c1e65e8c.png)
+![image](https://user-images.githubusercontent.com/40677401/143790769-c66272c1-ee86-4b61-8058-9b87ebdebaed.png)
 
+Arquivo build.xml foi gerado utilizando Ant.
 
-#### Testes realizados com JUnit5:
-![image](https://user-images.githubusercontent.com/40677401/141006389-819319f5-33ce-4f9f-9d07-9a75b2576842.png)
+Caso queira rodar o projeto utilizando o Eclipe (IDE utilizada pra seu desenvolvimento) será necessário importar o lombok.jar
 
-### Para rodar o APP basta abrir o projeto no Eclipse e selecionar a opção "Run as -> Java Application"
-![image](https://user-images.githubusercontent.com/40677401/142780908-7f321c08-ce53-4c36-930e-a7c120439c03.png)
+#### Utilização da aplicação
+Assim como na planilha original o usuário deverá preencher os valores no solo na guia Valores Ideais, e então clicar no botão "Calcular", após esta etapa o usuário está livre para utilização do resto da aplicação.
 
-Para rodar os testes é necessário importar o lombok.jar
+A alteração dos tipos de terreno e tipos de fontes é feita por meio de um JComboBox, e campos deixados vazios serão substituídos com o valor 1.
 
 ### Proposta: 
 
@@ -73,4 +72,14 @@ Todo o conteúdo visual e estrutural das guias está no arquivo da página princ
 
 
 #### Comentários do professor
+
+
+### Notas finais do autor com relação a funcionalidades não implementadas:
+>Coisas que não consegui entender na planilha:
+>Elementos que utilizam guias distintas como por exemplo a tupla O179 da guia EQUILIVRIO E CORREÇÃO NA CTC, que possui a fórmula ='Memória de cálculo'!G111+'Memória de cálculo'!I105
+>
+>Ou ainda em Memória de cálculo tupla F117 com fórmula =F113*'EQUILIBRIO E CORREÇÃO NA CTC'!H5
+>
+>Não fui capaz de identificar qual parte do código já feito realiza estas etapas.
+
 
