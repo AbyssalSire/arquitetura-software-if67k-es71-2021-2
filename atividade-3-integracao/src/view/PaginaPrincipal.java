@@ -632,8 +632,7 @@ public class PaginaPrincipal {
 		btnCalcular_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(null, "Botão funcionando Guia Cálcio e Magnésio, apagando textos input e adicionando texto nos JTextFields sem input");
-				func4.ApagaBotoes(PaginaPrincipal.this);
-				func4.PreencheBotoes(PaginaPrincipal.this);		
+				func4.CalculaCalcioMagnesio(null);	
 			}
 		});
 		btnCalcular_3.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -810,9 +809,6 @@ public class PaginaPrincipal {
 //		JButton btnCalcular_2 = new JButton("Calcular");
 		btnCalcular_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Botão funcionando Guia Potássio, apagando textos input e adicionando texto nos JTextFields sem input");
-				//func3.ApagaBotoes(PaginaPrincipal.this);
-				//func3.CalculaPotassio(PaginaPrincipal.this);		
 				func3.CalculaPotassio(PaginaPrincipal.this);
 			}
 		});
@@ -1136,8 +1132,7 @@ public class PaginaPrincipal {
 //		JButton btnCalcular_1 = new JButton("Calcular");
 		btnCalcular_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Botão funcionando Guia Fosforo, apagando textos input e adicionando texto nos JTextFields sem input");
-				//func2.ApagaBotoes(PaginaPrincipal.this);
+
 				func2.CalculaFosforo(PaginaPrincipal.this);
 			} 
 		});
@@ -1541,7 +1536,7 @@ public class PaginaPrincipal {
 	
 	public List<JTextField> getTextFieldComInputUsuarioGuiaCalcioMagnesio(){
 		textFieldFonteCalcioEMagnesio.setText(fonteCalcioEMagnesioJComboBox.getSelectedItem().toString());
-		listaComInputFosforo.add(textFieldFonteCalcioEMagnesio);
+		listaComInputCalcioMagnesio.add(textFieldFonteCalcioEMagnesio);
 		listaComInputCalcioMagnesio.add(txtCalcio_Desejado_Resposta);
 		//listaComInputCalcioMagnesio.add(txt_FonteCorretivoUsar_Resposta);
 		listaComInputCalcioMagnesio.add(txt_PRNT_resposta);
@@ -1556,16 +1551,16 @@ public class PaginaPrincipal {
 		return listaComInputCalcioMagnesio;
 	}
 	public List<JTextField> getTextFieldSemInputUsuarioGuiaCalcioMagnesio(){
-		listaSemInputCalcioMagnesio.add(txtCalcio_ParticipaoAtualCTCSolo);
-		listaSemInputCalcioMagnesio.add(txtCalcio_Ideal);
-		listaSemInputCalcioMagnesio.add(txtCalcio_AposCorrecoes);
-		listaSemInputCalcioMagnesio.add(txtMagnesio_ParticipaoAtualCTCSolo);
-		listaSemInputCalcioMagnesio.add(txtMagnesio_Ideal);
-		listaSemInputCalcioMagnesio.add(txtMagnesio_AposCorrecoes);
-		listaSemInputCalcioMagnesio.add(txt_QuantidadeAAplicar_TONHa);
-		listaSemInputCalcioMagnesio.add(textField_Atual_Resposta);
-		listaSemInputCalcioMagnesio.add(textField_AposCorrecoes);
-		listaSemInputCalcioMagnesio.add(txt_Ideal_resp);
+		listaSemInputCalcioMagnesio.add(txtCalcio_ParticipaoAtualCTCSolo);//0
+		listaSemInputCalcioMagnesio.add(txtCalcio_Ideal);//1
+		listaSemInputCalcioMagnesio.add(txtCalcio_AposCorrecoes);//2
+		listaSemInputCalcioMagnesio.add(txtMagnesio_ParticipaoAtualCTCSolo);//3
+		listaSemInputCalcioMagnesio.add(txtMagnesio_Ideal);//4
+		listaSemInputCalcioMagnesio.add(txtMagnesio_AposCorrecoes);//5
+		listaSemInputCalcioMagnesio.add(txt_QuantidadeAAplicar_TONHa);//6
+		listaSemInputCalcioMagnesio.add(textField_Atual_Resposta);//7
+		listaSemInputCalcioMagnesio.add(textField_AposCorrecoes);//8
+		listaSemInputCalcioMagnesio.add(txt_Ideal_resp);//9
 		return listaSemInputCalcioMagnesio;
 	}
 }

@@ -20,16 +20,8 @@ public class CalculoPotassio implements EventListener{
 	    private JTextField texto;
 	    List<JTextField> listaTextFieldsComInputUsuárioGuiaPotassio = new ArrayList<JTextField>();
 	    List<JTextField> listaTextFieldsSemInputUsuárioGuiaPotassio = new ArrayList<JTextField>();
-	    private String fonteFosfoto ="";
 	    
-	    public void ApagaBotoes(PaginaPrincipal pg){
-	        this.pg = pg;
-	        this.listaTextFieldsComInputUsuárioGuiaPotassio = pg.getTextFieldComInputUsuarioGuiaPotassio();
-	        for (int i = 0; i < listaTextFieldsComInputUsuárioGuiaPotassio.size(); i++) {
-	        	this.texto = pg.getTextField(listaTextFieldsComInputUsuárioGuiaPotassio.get(i));
-	        texto.setText("");
-	        }        
-	    }
+
 	    
 		public void VerificaVazio(PaginaPrincipal pg){
 	        this.pg = pg;

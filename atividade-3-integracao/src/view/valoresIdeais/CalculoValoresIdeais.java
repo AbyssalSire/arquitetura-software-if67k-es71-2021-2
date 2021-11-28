@@ -58,6 +58,8 @@ public class CalculoValoresIdeais implements EventListener{
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(3).setText(Double.toString(idealArgiloso.magnesio()));
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(4).setText(Double.toString(idealArgiloso.enxofre()));
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(5).setText(Double.toString(idealArgiloso.aluminioHidrogenio()));
+        	pg.getTextFieldSemInputUsuarioGuiaCalcioMagnesio().get(1).setText("45 a 55");
+        	pg.getTextFieldSemInputUsuarioGuiaCalcioMagnesio().get(1).setText("10 a 15");
         } else if (listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Textura média")){
         	NutrientesCTC idealTextura_Media = TexturaSolo.TEXTURA_MEDIA.calculaValorIdeal();
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(0).setText(Double.toString(idealTextura_Media.fosforo()));
@@ -66,6 +68,8 @@ public class CalculoValoresIdeais implements EventListener{
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(3).setText(Double.toString(idealTextura_Media.magnesio()));
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(4).setText(Double.toString(idealTextura_Media.enxofre()));
         	listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(5).setText(Double.toString(idealTextura_Media.aluminioHidrogenio()));
+        	pg.getTextFieldSemInputUsuarioGuiaCalcioMagnesio().get(1).setText("35 a 40");
+        	pg.getTextFieldSemInputUsuarioGuiaCalcioMagnesio().get(4).setText("8 a 12");
         }
         
         //Calcula S mol, CTC mol, V porcentual MO% e Carbono
