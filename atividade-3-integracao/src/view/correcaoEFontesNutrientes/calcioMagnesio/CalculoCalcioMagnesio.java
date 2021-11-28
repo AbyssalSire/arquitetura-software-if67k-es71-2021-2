@@ -1,4 +1,4 @@
-package view.correcaoEFontesNutrientes.potassio;
+package view.correcaoEFontesNutrientes.calcioMagnesio;
 
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -7,14 +7,14 @@ import javax.swing.JTextField;
 
 import view.PaginaPrincipal;
 
-public class BotaoPotassio implements EventListener{
+public class CalculoCalcioMagnesio implements EventListener{
     private PaginaPrincipal pg;
     private JTextField texto;
     List<JTextField> lista = new ArrayList<JTextField>();
     
     public void ApagaBotoes(PaginaPrincipal pg){
         this.pg = pg;
-        this.lista = pg.getTextFieldComInputUsuarioGuiaPotassio();
+        this.lista = pg.getTextFieldComInputUsuarioGuiaCalcioMagnesio();
         for (int i = 0; i < lista.size(); i++) {
         	this.texto = pg.getTextField(lista.get(i));
         texto.setText("");
@@ -23,10 +23,10 @@ public class BotaoPotassio implements EventListener{
     
     public void PreencheBotoes(PaginaPrincipal pg) {
         this.pg = pg;
-        this.lista = pg.getTextFieldSemInputUsuarioGuiaPotassio();
+        this.lista = pg.getTextFieldSemInputUsuarioGuiaCalcioMagnesio();
         for (int i = 0; i < lista.size(); i++) {
         	this.texto = pg.getTextField(lista.get(i));
-        texto.setText("Botão funcionou, guia Potássio!");
+        texto.setText("Botão funcionou, guia Cálcio e Magnésio!");
         } 	
     }
 }

@@ -18,10 +18,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import view.correcaoEFontesNutrientes.calcioMagnesio.BotaoCalcioMagnesio;
-import view.correcaoEFontesNutrientes.fosforo.BotaoFosforo;
-import view.correcaoEFontesNutrientes.potassio.BotaoPotassio;
-import view.valoresIdeais.BotaoValoresIdeais;
+import logic.edu.utfpr.cp.dacom.sa.soilcorrection.correcaoEFontesNutrientes.fosforo.FonteFosforo;
+import view.correcaoEFontesNutrientes.calcioMagnesio.CalculoCalcioMagnesio;
+import view.correcaoEFontesNutrientes.fosforo.CalculoFosforo;
+import view.correcaoEFontesNutrientes.potassio.CalculoPotassio;
+import view.valoresIdeais.CalculoValoresIdeais;
 
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
@@ -184,10 +185,10 @@ public class PaginaPrincipal {
 	private JTextField textField_AposCorrecoes;
 	private JTextField txtIdeal;
 	private JTextField txt_Ideal_resp;
-	private BotaoValoresIdeais func1 = new BotaoValoresIdeais();
-	private BotaoFosforo func2 = new BotaoFosforo();
-	private BotaoPotassio func3 = new BotaoPotassio();
-	private BotaoCalcioMagnesio func4 = new BotaoCalcioMagnesio();
+	private CalculoValoresIdeais func1 = new CalculoValoresIdeais();
+	private CalculoFosforo func2 = new CalculoFosforo();
+	private CalculoPotassio func3 = new CalculoPotassio();
+	private CalculoCalcioMagnesio func4 = new CalculoCalcioMagnesio();
 	private List<JTextField> listaComInputValoresIdeais = new ArrayList<JTextField>();
 	private List<JTextField> listaSemInputValoresIdeais = new ArrayList<JTextField>();
 	private List<JTextField> listaComInputFosforo = new ArrayList<JTextField>();
@@ -196,7 +197,8 @@ public class PaginaPrincipal {
 	private List<JTextField> listaSemInputPotassio = new ArrayList<JTextField>();
 	private List<JTextField> listaComInputCalcioMagnesio = new ArrayList<JTextField>();
 	private List<JTextField> listaSemInputCalcioMagnesio = new ArrayList<JTextField>();
-	JComboBox tipoTerreno = new JComboBox();
+	JComboBox tipoTerrenoJComboBox = new JComboBox();
+	JComboBox fonteFosforoJComboBox = new JComboBox();
 	
 	//Botões foram criados de forma pública para evitar ter de usar bibliotecas adicionais para fazer testes em Swing
 	//Deletar após testes para voltar ao estado original, também deve-se descomentar a criação dos respectivos botões
@@ -205,6 +207,13 @@ public class PaginaPrincipal {
 	public JButton btnCalcular_2 = new JButton("Calcular");
 	public JButton btnCalcular_3 = new JButton("Calcular");
 	private JTextField textFieldTipoDeSolo;
+	private JTextField textFieldFonteFosforo;
+	private JLabel lblNewLabel_5;
+	private JComboBox fontePotassioJComboBox;
+	private JTextField textFieldFontePotassio;
+	private JLabel lblNewLabel_6;
+	private JComboBox fonteCalcioEMagnesioJComboBox;
+	private JTextField textFieldFonteCalcioEMagnesio;
 
 
 	/**
@@ -629,8 +638,25 @@ public class PaginaPrincipal {
 			}
 		});
 		btnCalcular_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnCalcular_3.setBounds(740, 475, 100, 23);
+		btnCalcular_3.setBounds(712, 473, 100, 23);
 		guiaCalcioMagnesio.add(btnCalcular_3);
+		
+		lblNewLabel_6 = new JLabel("<html>Número da Fonte de Cálcio<br/>e Magnesio</html>");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_6.setBounds(50, 352, 145, 29);
+		guiaCalcioMagnesio.add(lblNewLabel_6);
+		
+		fonteCalcioEMagnesioJComboBox = new JComboBox();
+		fonteCalcioEMagnesioJComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6"}));
+		fonteCalcioEMagnesioJComboBox.setMaximumRowCount(6);
+		fonteCalcioEMagnesioJComboBox.setBounds(205, 348, 109, 22);
+		guiaCalcioMagnesio.add(fonteCalcioEMagnesioJComboBox);
+		
+		textFieldFonteCalcioEMagnesio = new JTextField();
+		textFieldFonteCalcioEMagnesio.setEditable(false);
+		textFieldFonteCalcioEMagnesio.setColumns(10);
+		textFieldFonteCalcioEMagnesio.setBounds(205, 376, 109, 20);
+		guiaCalcioMagnesio.add(textFieldFonteCalcioEMagnesio);
 	}
 
 
@@ -810,14 +836,30 @@ public class PaginaPrincipal {
 		btnCalcular_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCalcular_2.setBounds(710, 306, 100, 23);
 		guiaPotassio.add(btnCalcular_2);
+		
+		lblNewLabel_5 = new JLabel("Número da Fonte de Potássio");
+		lblNewLabel_5.setBounds(406, 311, 183, 14);
+		guiaPotassio.add(lblNewLabel_5);
+		
+		fontePotassioJComboBox = new JComboBox();
+		fontePotassioJComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3"}));
+		fontePotassioJComboBox.setMaximumRowCount(3);
+		fontePotassioJComboBox.setBounds(591, 307, 109, 22);
+		guiaPotassio.add(fontePotassioJComboBox);
+		
+		textFieldFontePotassio = new JTextField();
+		textFieldFontePotassio.setEditable(false);
+		textFieldFontePotassio.setColumns(10);
+		textFieldFontePotassio.setBounds(591, 335, 109, 20);
+		guiaPotassio.add(textFieldFontePotassio);
 	}
 
 
 
 	private void guiaFosforo(JTabbedPane painelDeGuias) {
-		JPanel guiaFosforo = new JPanel();
-		painelDeGuias.addTab("Fósforo", null, guiaFosforo, null);
-		guiaFosforo.setLayout(null);
+		JPanel txtFonteFosforo = new JPanel();
+		painelDeGuias.addTab("Fósforo", null, txtFonteFosforo, null);
+		txtFonteFosforo.setLayout(null);
 		
 		textFieldCorrecaoRecuperacaoFosforo = new JTextField();
 		textFieldCorrecaoRecuperacaoFosforo.setText("Correção/Recuperação de FÓSFORO");
@@ -827,7 +869,7 @@ public class PaginaPrincipal {
 		textFieldCorrecaoRecuperacaoFosforo.setColumns(10);
 		textFieldCorrecaoRecuperacaoFosforo.setBackground(Color.CYAN);
 		textFieldCorrecaoRecuperacaoFosforo.setBounds(10, 11, 855, 30);
-		guiaFosforo.add(textFieldCorrecaoRecuperacaoFosforo);
+		txtFonteFosforo.add(textFieldCorrecaoRecuperacaoFosforo);
 		
 		textFieldFontesFosforo = new JTextField();
 		textFieldFontesFosforo.setText("Fontes de FÓSFORO");
@@ -837,147 +879,147 @@ public class PaginaPrincipal {
 		textFieldFontesFosforo.setColumns(10);
 		textFieldFontesFosforo.setBackground(Color.CYAN);
 		textFieldFontesFosforo.setBounds(10, 156, 855, 30);
-		guiaFosforo.add(textFieldFontesFosforo);
+		txtFonteFosforo.add(textFieldFontesFosforo);
 		
 		lblTeorDeFosforoAAtingir = new JLabel("Teor de Fósforo a atingir:");
 		lblTeorDeFosforoAAtingir.setBounds(10, 53, 150, 14);
-		guiaFosforo.add(lblTeorDeFosforoAAtingir);
+		txtFonteFosforo.add(lblTeorDeFosforoAAtingir);
 		
 		lblFonteDeFosforoAUtilizar = new JLabel("Fonte de Fósforo a utilizar:");
 		lblFonteDeFosforoAUtilizar.setBounds(10, 78, 150, 14);
-		guiaFosforo.add(lblFonteDeFosforoAUtilizar);
+		txtFonteFosforo.add(lblFonteDeFosforoAUtilizar);
 		
 		lblQuantidadeAAplicar = new JLabel("Quantidade a aplicar:");
 		lblQuantidadeAAplicar.setBounds(10, 103, 150, 14);
-		guiaFosforo.add(lblQuantidadeAAplicar);
+		txtFonteFosforo.add(lblQuantidadeAAplicar);
 		
 		lblEficinciaDoFsforo = new JLabel("Eficiência do Fósforo %:");
 		lblEficinciaDoFsforo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEficinciaDoFsforo.setBounds(10, 128, 150, 14);
-		guiaFosforo.add(lblEficinciaDoFsforo);
+		txtFonteFosforo.add(lblEficinciaDoFsforo);
 		
 		textFieldTeorDeFosforoAAtingir = new JTextField();
 		textFieldTeorDeFosforoAAtingir.setBounds(170, 50, 50, 20);
-		guiaFosforo.add(textFieldTeorDeFosforoAAtingir);
+		txtFonteFosforo.add(textFieldTeorDeFosforoAAtingir);
 		textFieldTeorDeFosforoAAtingir.setColumns(10);
 		
 		textFieldFonteDeFosforoAAplicar = new JTextField();
 		textFieldFonteDeFosforoAAplicar.setColumns(10);
 		textFieldFonteDeFosforoAAplicar.setBounds(170, 75, 50, 20);
-		guiaFosforo.add(textFieldFonteDeFosforoAAplicar);
+		txtFonteFosforo.add(textFieldFonteDeFosforoAAplicar);
 		
 		textFieldQuantidadeAAplicar = new JTextField();
 		textFieldQuantidadeAAplicar.setEditable(false);
 		textFieldQuantidadeAAplicar.setColumns(10);
 		textFieldQuantidadeAAplicar.setBounds(170, 100, 50, 20);
-		guiaFosforo.add(textFieldQuantidadeAAplicar);
+		txtFonteFosforo.add(textFieldQuantidadeAAplicar);
 		
 		textFieldEficienciaDoFosforo = new JTextField();
 		textFieldEficienciaDoFosforo.setColumns(10);
 		textFieldEficienciaDoFosforo.setBounds(170, 125, 50, 20);
-		guiaFosforo.add(textFieldEficienciaDoFosforo);
+		txtFonteFosforo.add(textFieldEficienciaDoFosforo);
 		
 		lblNewLabel_2 = new JLabel("OBS. Sugerimos uma eficiência  entre 70% a 90%");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 9));
 		lblNewLabel_2.setBounds(230, 128, 250, 14);
-		guiaFosforo.add(lblNewLabel_2);
+		txtFonteFosforo.add(lblNewLabel_2);
 		
 		lblUnidadeDeMedidaDm3_2 = new JLabel("mg.dm³");
 		lblUnidadeDeMedidaDm3_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUnidadeDeMedidaDm3_2.setBounds(230, 53, 50, 14);
-		guiaFosforo.add(lblUnidadeDeMedidaDm3_2);
+		txtFonteFosforo.add(lblUnidadeDeMedidaDm3_2);
 		
 		textFieldTipoSuperosfato = new JTextField();
 		textFieldTipoSuperosfato.setText("Superfosfato Simples");
 		textFieldTipoSuperosfato.setEditable(false);
 		textFieldTipoSuperosfato.setBounds(230, 75, 150, 20);
-		guiaFosforo.add(textFieldTipoSuperosfato);
+		txtFonteFosforo.add(textFieldTipoSuperosfato);
 		textFieldTipoSuperosfato.setColumns(10);
 		
 		lblKgHectare = new JLabel("kg/hectare ");
 		lblKgHectare.setBounds(230, 103, 70, 14);
-		guiaFosforo.add(lblKgHectare);
+		txtFonteFosforo.add(lblKgHectare);
 		
 		lblCustoRSHA = new JLabel("Custo - R$/ha:");
 		lblCustoRSHA.setBounds(400, 103, 80, 14);
-		guiaFosforo.add(lblCustoRSHA);
+		txtFonteFosforo.add(lblCustoRSHA);
 		
 		lblNewLabel_4 = new JLabel("Essa correção de FÓSFORO, fornecerá também (kg/ha):");
 		lblNewLabel_4.setBounds(400, 52, 300, 14);
-		guiaFosforo.add(lblNewLabel_4);
+		txtFonteFosforo.add(lblNewLabel_4);
 		
 		textFieldValor_Resposta_1 = new JTextField();
 		textFieldValor_Resposta_1.setEditable(false);
 		textFieldValor_Resposta_1.setBounds(400, 75, 70, 20);
-		guiaFosforo.add(textFieldValor_Resposta_1);
+		txtFonteFosforo.add(textFieldValor_Resposta_1);
 		textFieldValor_Resposta_1.setColumns(10);
 		
 		textFieldEnxofreOuMagnesio = new JTextField();
 		textFieldEnxofreOuMagnesio.setEditable(false);
 		textFieldEnxofreOuMagnesio.setColumns(10);
 		textFieldEnxofreOuMagnesio.setBounds(480, 75, 70, 20);
-		guiaFosforo.add(textFieldEnxofreOuMagnesio);
+		txtFonteFosforo.add(textFieldEnxofreOuMagnesio);
 		
 		textFieldValor_Resoposta_2 = new JTextField();
 		textFieldValor_Resoposta_2.setEditable(false);
 		textFieldValor_Resoposta_2.setColumns(10);
 		textFieldValor_Resoposta_2.setBounds(640, 75, 70, 20);
-		guiaFosforo.add(textFieldValor_Resoposta_2);
+		txtFonteFosforo.add(textFieldValor_Resoposta_2);
 		
 		textCalcioOuNitroGenio = new JTextField();
 		textCalcioOuNitroGenio.setEditable(false);
 		textCalcioOuNitroGenio.setColumns(10);
 		textCalcioOuNitroGenio.setBounds(720, 75, 70, 20);
-		guiaFosforo.add(textCalcioOuNitroGenio);
+		txtFonteFosforo.add(textCalcioOuNitroGenio);
 		
 		textFieldCustoRSHa_Resposta = new JTextField();
 		textFieldCustoRSHa_Resposta.setEditable(false);
 		textFieldCustoRSHa_Resposta.setColumns(10);
 		textFieldCustoRSHa_Resposta.setBounds(480, 100, 70, 20);
-		guiaFosforo.add(textFieldCustoRSHa_Resposta);
+		txtFonteFosforo.add(textFieldCustoRSHa_Resposta);
 		
 		JLabel lblFonte = new JLabel("Fonte");
 		lblFonte.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFonte.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFonte.setBounds(10, 197, 125, 14);
-		guiaFosforo.add(lblFonte);
+		txtFonteFosforo.add(lblFonte);
 		
 		JLabel lblValortonr = new JLabel("Valor/Ton. (R$)");
 		lblValortonr.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValortonr.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValortonr.setBounds(145, 197, 125, 14);
-		guiaFosforo.add(lblValortonr);
+		txtFonteFosforo.add(lblValortonr);
 		
 		JLabel lblFonte_1 = new JLabel("Fonte");
 		lblFonte_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFonte_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFonte_1.setBounds(280, 197, 125, 14);
-		guiaFosforo.add(lblFonte_1);
+		txtFonteFosforo.add(lblFonte_1);
 		
 		JLabel lblValortonr_1 = new JLabel("Valor/Ton. (R$)");
 		lblValortonr_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValortonr_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValortonr_1.setBounds(415, 197, 125, 14);
-		guiaFosforo.add(lblValortonr_1);
+		txtFonteFosforo.add(lblValortonr_1);
 		
 		JLabel lblFonte_2 = new JLabel("Fonte");
 		lblFonte_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFonte_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFonte_2.setBounds(550, 197, 125, 14);
-		guiaFosforo.add(lblFonte_2);
+		txtFonteFosforo.add(lblFonte_2);
 		
 		JLabel lblValortonr_2 = new JLabel("Valor/Ton. (R$)");
 		lblValortonr_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValortonr_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValortonr_2.setBounds(685, 197, 125, 14);
-		guiaFosforo.add(lblValortonr_2);
+		txtFonteFosforo.add(lblValortonr_2);
 		
 		txtSuperfosfatoSimples = new JTextField();
 		txtSuperfosfatoSimples.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		txtSuperfosfatoSimples.setText("1 – Superfosfato Simples");
 		txtSuperfosfatoSimples.setEditable(false);
 		txtSuperfosfatoSimples.setBounds(10, 222, 125, 20);
-		guiaFosforo.add(txtSuperfosfatoSimples);
+		txtFonteFosforo.add(txtSuperfosfatoSimples);
 		txtSuperfosfatoSimples.setColumns(10);
 		
 		txtDap = new JTextField();
@@ -985,14 +1027,14 @@ public class PaginaPrincipal {
 		txtDap.setEditable(false);
 		txtDap.setColumns(10);
 		txtDap.setBounds(10, 253, 125, 20);
-		guiaFosforo.add(txtDap);
+		txtFonteFosforo.add(txtDap);
 		
 		txtFosfato_Gafsa = new JTextField();
 		txtFosfato_Gafsa.setText("7 – Fosfato  Gafsa");
 		txtFosfato_Gafsa.setEditable(false);
 		txtFosfato_Gafsa.setColumns(10);
 		txtFosfato_Gafsa.setBounds(10, 284, 125, 20);
-		guiaFosforo.add(txtFosfato_Gafsa);
+		txtFonteFosforo.add(txtFosfato_Gafsa);
 		
 		txtEscoriaThomas = new JTextField();
 		txtEscoriaThomas.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -1000,27 +1042,27 @@ public class PaginaPrincipal {
 		txtEscoriaThomas.setEditable(false);
 		txtEscoriaThomas.setColumns(10);
 		txtEscoriaThomas.setBounds(10, 315, 125, 20);
-		guiaFosforo.add(txtEscoriaThomas);
+		txtFonteFosforo.add(txtEscoriaThomas);
 		
 		textField_Valor_Superfosfato_Simples = new JTextField();
 		textField_Valor_Superfosfato_Simples.setColumns(10);
 		textField_Valor_Superfosfato_Simples.setBounds(145, 222, 125, 20);
-		guiaFosforo.add(textField_Valor_Superfosfato_Simples);
+		txtFonteFosforo.add(textField_Valor_Superfosfato_Simples);
 		
 		textField_Valor_DAP = new JTextField();
 		textField_Valor_DAP.setColumns(10);
 		textField_Valor_DAP.setBounds(145, 253, 125, 20);
-		guiaFosforo.add(textField_Valor_DAP);
+		txtFonteFosforo.add(textField_Valor_DAP);
 		
 		textField_Valor_Fosfato_Gafsa = new JTextField();
 		textField_Valor_Fosfato_Gafsa.setColumns(10);
 		textField_Valor_Fosfato_Gafsa.setBounds(145, 284, 125, 20);
-		guiaFosforo.add(textField_Valor_Fosfato_Gafsa);
+		txtFonteFosforo.add(textField_Valor_Fosfato_Gafsa);
 		
 		textField_Valor_EscoriaDeThomas = new JTextField();
 		textField_Valor_EscoriaDeThomas.setColumns(10);
 		textField_Valor_EscoriaDeThomas.setBounds(145, 315, 125, 20);
-		guiaFosforo.add(textField_Valor_EscoriaDeThomas);
+		txtFonteFosforo.add(textField_Valor_EscoriaDeThomas);
 		
 		txtSuperfosfato_Triplo = new JTextField();
 		txtSuperfosfato_Triplo.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -1028,62 +1070,62 @@ public class PaginaPrincipal {
 		txtSuperfosfato_Triplo.setEditable(false);
 		txtSuperfosfato_Triplo.setColumns(10);
 		txtSuperfosfato_Triplo.setBounds(280, 222, 125, 20);
-		guiaFosforo.add(txtSuperfosfato_Triplo);
+		txtFonteFosforo.add(txtSuperfosfato_Triplo);
 		
 		txtYoorin = new JTextField();
 		txtYoorin.setText("5 – Yoorin");
 		txtYoorin.setEditable(false);
 		txtYoorin.setColumns(10);
 		txtYoorin.setBounds(280, 253, 125, 20);
-		guiaFosforo.add(txtYoorin);
+		txtFonteFosforo.add(txtYoorin);
 		
 		txtFosfato_1Daoui = new JTextField();
 		txtFosfato_1Daoui.setText("8 – Fosfato  Daoui");
 		txtFosfato_1Daoui.setEditable(false);
 		txtFosfato_1Daoui.setColumns(10);
 		txtFosfato_1Daoui.setBounds(280, 284, 125, 20);
-		guiaFosforo.add(txtFosfato_1Daoui);
+		txtFonteFosforo.add(txtFosfato_1Daoui);
 		
 		txtAcidoFosforico = new JTextField();
 		txtAcidoFosforico.setText("11 – Ácido Fosfórico ");
 		txtAcidoFosforico.setEditable(false);
 		txtAcidoFosforico.setColumns(10);
 		txtAcidoFosforico.setBounds(280, 315, 125, 20);
-		guiaFosforo.add(txtAcidoFosforico);
+		txtFonteFosforo.add(txtAcidoFosforico);
 		
 		textField_Valor_AcidoFosforico = new JTextField();
 		textField_Valor_AcidoFosforico.setColumns(10);
 		textField_Valor_AcidoFosforico.setBounds(415, 315, 125, 20);
-		guiaFosforo.add(textField_Valor_AcidoFosforico);
+		txtFonteFosforo.add(textField_Valor_AcidoFosforico);
 		
 		textField_Valor_Fosfato_Daoui = new JTextField();
 		textField_Valor_Fosfato_Daoui.setColumns(10);
 		textField_Valor_Fosfato_Daoui.setBounds(415, 284, 125, 20);
-		guiaFosforo.add(textField_Valor_Fosfato_Daoui);
+		txtFonteFosforo.add(textField_Valor_Fosfato_Daoui);
 		
 		textField_Valor_Yoorin = new JTextField();
 		textField_Valor_Yoorin.setColumns(10);
 		textField_Valor_Yoorin.setBounds(415, 253, 125, 20);
-		guiaFosforo.add(textField_Valor_Yoorin);
+		txtFonteFosforo.add(textField_Valor_Yoorin);
 		
 		textField_Valor_Superfosfato_Triplo = new JTextField();
 		textField_Valor_Superfosfato_Triplo.setColumns(10);
 		textField_Valor_Superfosfato_Triplo.setBounds(415, 222, 125, 20);
-		guiaFosforo.add(textField_Valor_Superfosfato_Triplo);
+		txtFonteFosforo.add(textField_Valor_Superfosfato_Triplo);
 		
 		txtMap = new JTextField();
 		txtMap.setText("3 – MAP\t");
 		txtMap.setEditable(false);
 		txtMap.setColumns(10);
 		txtMap.setBounds(550, 222, 125, 20);
-		guiaFosforo.add(txtMap);
+		txtFonteFosforo.add(txtMap);
 		
 		txtFosfato_Arad = new JTextField();
 		txtFosfato_Arad.setText("6 – Fosfato  Arad");
 		txtFosfato_Arad.setEditable(false);
 		txtFosfato_Arad.setColumns(10);
 		txtFosfato_Arad.setBounds(550, 253, 125, 20);
-		guiaFosforo.add(txtFosfato_Arad);
+		txtFonteFosforo.add(txtFosfato_Arad);
 		
 		txtFosfato_PatoMinas = new JTextField();
 		txtFosfato_PatoMinas.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -1091,7 +1133,7 @@ public class PaginaPrincipal {
 		txtFosfato_PatoMinas.setEditable(false);
 		txtFosfato_PatoMinas.setColumns(10);
 		txtFosfato_PatoMinas.setBounds(550, 284, 125, 20);
-		guiaFosforo.add(txtFosfato_PatoMinas);
+		txtFonteFosforo.add(txtFosfato_PatoMinas);
 		
 		txtMultifmagnesiano = new JTextField();
 		txtMultifmagnesiano.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -1099,27 +1141,27 @@ public class PaginaPrincipal {
 		txtMultifmagnesiano.setEditable(false);
 		txtMultifmagnesiano.setColumns(10);
 		txtMultifmagnesiano.setBounds(550, 315, 125, 20);
-		guiaFosforo.add(txtMultifmagnesiano);
+		txtFonteFosforo.add(txtMultifmagnesiano);
 		
 		textField_Valor_MultifMagnesiano = new JTextField();
 		textField_Valor_MultifMagnesiano.setColumns(10);
 		textField_Valor_MultifMagnesiano.setBounds(685, 315, 125, 20);
-		guiaFosforo.add(textField_Valor_MultifMagnesiano);
+		txtFonteFosforo.add(textField_Valor_MultifMagnesiano);
 		
 		textField_Valor_Fosfato_PatoMinas = new JTextField();
 		textField_Valor_Fosfato_PatoMinas.setColumns(10);
 		textField_Valor_Fosfato_PatoMinas.setBounds(685, 284, 125, 20);
-		guiaFosforo.add(textField_Valor_Fosfato_PatoMinas);
+		txtFonteFosforo.add(textField_Valor_Fosfato_PatoMinas);
 		
 		textField_Valor_Fosfato_Arad = new JTextField();
 		textField_Valor_Fosfato_Arad.setColumns(10);
 		textField_Valor_Fosfato_Arad.setBounds(685, 253, 125, 20);
-		guiaFosforo.add(textField_Valor_Fosfato_Arad);
+		txtFonteFosforo.add(textField_Valor_Fosfato_Arad);
 		
 		textField_Valor_Map = new JTextField();
 		textField_Valor_Map.setColumns(10);
 		textField_Valor_Map.setBounds(685, 222, 125, 20);
-		guiaFosforo.add(textField_Valor_Map);
+		txtFonteFosforo.add(textField_Valor_Map);
 
 // 		descomentar após testes para voltar ao estado original
 //		JButton btnCalcular_1 = new JButton("Calcular");
@@ -1132,7 +1174,23 @@ public class PaginaPrincipal {
 		});
 		btnCalcular_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnCalcular_1.setBounds(746, 400, 100, 23);
-		guiaFosforo.add(btnCalcular_1);
+		txtFonteFosforo.add(btnCalcular_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("Número da Fonte de Fósfoso");
+		lblNewLabel_3.setBounds(442, 377, 183, 14);
+		txtFonteFosforo.add(lblNewLabel_3);
+		
+
+		fonteFosforoJComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		fonteFosforoJComboBox.setMaximumRowCount(12);
+		fonteFosforoJComboBox.setBounds(627, 373, 109, 22);
+		txtFonteFosforo.add(fonteFosforoJComboBox);
+		
+		textFieldFonteFosforo = new JTextField();
+		textFieldFonteFosforo.setEditable(false);
+		textFieldFonteFosforo.setColumns(10);
+		textFieldFonteFosforo.setBounds(627, 401, 109, 20);
+		txtFonteFosforo.add(textFieldFonteFosforo);
 	}
 
 
@@ -1399,10 +1457,10 @@ public class PaginaPrincipal {
 		btnCalcular.setName("btnCalcular");
 		
 
-		tipoTerreno.setMaximumRowCount(2);
-		tipoTerreno.setModel(new DefaultComboBoxModel(new String[] {"Argiloso", "Textura média"}));
-		tipoTerreno.setBounds(621, 301, 109, 22);
-		guiaValoresIdeais.add(tipoTerreno);
+		tipoTerrenoJComboBox.setMaximumRowCount(2);
+		tipoTerrenoJComboBox.setModel(new DefaultComboBoxModel(new String[] {"Argiloso", "Textura média"}));
+		tipoTerrenoJComboBox.setBounds(621, 301, 109, 22);
+		guiaValoresIdeais.add(tipoTerrenoJComboBox);
 		
 		JLabel lblNewLabel_3 = new JLabel("Tipo de terreno");
 		lblNewLabel_3.setBounds(520, 305, 100, 14);
@@ -1422,7 +1480,7 @@ public class PaginaPrincipal {
 	}
 
 	public List<JTextField> getTextFieldsComInputUsuárioGuiaValoresIdeais() {
-		textFieldTipoDeSolo.setText(tipoTerreno.getSelectedItem().toString());
+		textFieldTipoDeSolo.setText(tipoTerrenoJComboBox.getSelectedItem().toString());
 		listaComInputValoresIdeais.add(textFieldTipoDeSolo);	
 		listaComInputValoresIdeais.add(textFieldNoSoloFosforo);
 		listaComInputValoresIdeais.add(textFieldNoSoloPotassio); //2
@@ -1462,6 +1520,8 @@ public class PaginaPrincipal {
 	}
 	
 	public List<JTextField> getTextFieldComInputUsuarioGuiaFosforo(){
+		textFieldFonteFosforo.setText(fonteFosforoJComboBox.getSelectedItem().toString());
+		listaComInputFosforo.add(textFieldFonteFosforo);
 		listaComInputFosforo.add(textFieldTeorDeFosforoAAtingir);
 		listaComInputFosforo.add(textFieldFonteDeFosforoAAplicar);
 		listaComInputFosforo.add(textFieldEficienciaDoFosforo);
@@ -1492,6 +1552,8 @@ public class PaginaPrincipal {
 	}
 	
 	public List<JTextField> getTextFieldComInputUsuarioGuiaPotassio(){
+		textFieldFonteFosforo.setText(fontePotassioJComboBox.getSelectedItem().toString());
+		listaComInputFosforo.add(textFieldFontePotassio);
 		listaComInputPotassio.add(textField_Potassio_CTC_Desejada);
 		listaComInputPotassio.add(txtCloreto_Resposta);
 		listaComInputPotassio.add(txtSulfato_Resposta);
@@ -1509,6 +1571,8 @@ public class PaginaPrincipal {
 	}
 	
 	public List<JTextField> getTextFieldComInputUsuarioGuiaCalcioMagnesio(){
+		textFieldFonteFosforo.setText(fonteCalcioEMagnesioJComboBox.getSelectedItem().toString());
+		listaComInputFosforo.add(textFieldFonteCalcioEMagnesio);
 		listaComInputCalcioMagnesio.add(txtCalcio_Desejado_Resposta);
 		listaComInputCalcioMagnesio.add(txt_FonteCorretivoUsar_Resposta);
 		listaComInputCalcioMagnesio.add(txt_PRNT_resposta);

@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import view.PaginaPrincipal;
 import logic.edu.utfpr.cp.dacom.sa.soilcorrection.valoresIdeais.*;
 
-public class BotaoValoresIdeais implements EventListener{
+public class CalculoValoresIdeais implements EventListener{
     private PaginaPrincipal pg;
     private JTextField texto;
     List<JTextField> listaTextFieldsComInputUsuárioGuiaValoresIdeais = new ArrayList<JTextField>();

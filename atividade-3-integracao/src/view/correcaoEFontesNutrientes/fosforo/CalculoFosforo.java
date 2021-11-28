@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 import view.PaginaPrincipal;
 
-public class BotaoFosforo implements EventListener{
+public class CalculoFosforo implements EventListener{
     private PaginaPrincipal pg;
     private JTextField texto;
     List<JTextField> lista = new ArrayList<JTextField>();
