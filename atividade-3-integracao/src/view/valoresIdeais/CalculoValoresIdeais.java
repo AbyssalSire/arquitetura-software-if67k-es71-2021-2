@@ -36,9 +36,9 @@ public class CalculoValoresIdeais implements EventListener{
     
     public void CalculaIdeal(PaginaPrincipal pg) {
         this.pg = pg;
-        this.listaTextFieldsComInputUsuárioGuiaValoresIdeais = pg.getTextFieldsComInputUsuárioGuiaValoresIdeais();
+        this.listaTextFieldsComInputUsuárioGuiaValoresIdeais = pg.getTextFieldComInputUsuarioGuiaFosforo();
         this.listaTextFieldsSemInputUsuárioGuiaValoresIdeais = pg.getTextFieldsSemInputUsuárioGuiaValoresIdeais();
-        System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso"));
+        //System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso"));
         
         //Calcula valores ideais para tipo de solo
         if(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso")) {
