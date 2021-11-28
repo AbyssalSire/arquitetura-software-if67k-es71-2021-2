@@ -1,14 +1,16 @@
 package view.valoresIdeais;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
+import java.util.Locale;
+
 import javax.swing.JTextField;
 
-import view.PaginaPrincipal;
 import logic.edu.utfpr.cp.dacom.sa.soilcorrection.valoresIdeais.*;
+import view.PaginaPrincipal;
 
 public class CalculoValoresIdeais implements EventListener{
     private PaginaPrincipal pg;
@@ -25,20 +27,27 @@ public class CalculoValoresIdeais implements EventListener{
         }        
     }
     
-   /* public void PreencheBotoes(PaginaPrincipal pg) {
+	public void VerificaVazio(PaginaPrincipal pg){
         this.pg = pg;
-        this.lista = pg.getTextFieldsSemInputUsuárioGuiaValoresIdeais();
-        for (int i = 0; i < lista.size(); i++) {
-        	this.texto = pg.getTextField(lista.get(i));
-        texto.setText("Botão funcionou, guia Valores Ideais!");
-        } 	
-    }*/
-    
+        this.listaTextFieldsComInputUsuárioGuiaValoresIdeais = pg.getTextFieldsComInputUsuárioGuiaValoresIdeais();
+        for (int i = 0; i < listaTextFieldsComInputUsuárioGuiaValoresIdeais.size(); i++) {
+        	if (pg.getTextField(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(i)).getText().equals("")) {
+        		this.texto = pg.getTextField(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(i));
+        		texto.setText("1");
+        	}
+        }        
+    }
+	
+	
     public void CalculaIdeal(PaginaPrincipal pg) {
+    	
+    	NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+
         this.pg = pg;
         this.listaTextFieldsComInputUsuárioGuiaValoresIdeais = pg.getTextFieldComInputUsuarioGuiaFosforo();
         this.listaTextFieldsSemInputUsuárioGuiaValoresIdeais = pg.getTextFieldsSemInputUsuárioGuiaValoresIdeais();
         //System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso"));
+        VerificaVazio(pg);
         
         //Calcula valores ideais para tipo de solo
         if(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(0).getText().equals("Argiloso")) {
@@ -61,35 +70,41 @@ public class CalculoValoresIdeais implements EventListener{
         
         //Calcula S mol, CTC mol, V porcentual MO% e Carbono
         
-        double SCmol = new EquilibrioCorrecaoCTC().
-        		calculaSCmol(
-        				Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(2).getText()), 
-        				Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(3).getText()), 
-        				Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(4).getText())
-        				);
-        
-        double CTCCmol = new EquilibrioCorrecaoCTC().
-				calculaCTCCmol(
-						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(2).getText()), 
-						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(3).getText()), 
-						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(4).getText()),						
-						Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(7).getText())
-						);
-        System.out.println(CTCCmol);
-        double vPorcentual = new EquilibrioCorrecaoCTC().calculaVPercentual(SCmol, CTCCmol);
-        
-        double moPercentual = new EquilibrioCorrecaoCTC().calculaMOPercentual(Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(8).getText()));
-        
-        double carbono = new EquilibrioCorrecaoCTC().calculaCarbono(moPercentual);
-        
-        
-        System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(8).getText());
-        
-        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(10).setText(Double.toString(SCmol));
-        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(11).setText(Double.toString(CTCCmol));
-        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(12).setText(Double.toString(vPorcentual));
-        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(13).setText(Double.toString(moPercentual));
-        listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(14).setText(Double.toString(carbono));
+        double SCmol;
+		try {
+			SCmol = new EquilibrioCorrecaoCTC().
+					calculaSCmol(
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(2).getText()).doubleValue(), 
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(3).getText()).doubleValue(), 
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(4).getText()).doubleValue()
+							);
+			
+			double CTCCmol = new EquilibrioCorrecaoCTC().
+					calculaCTCCmol(
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(2).getText()).doubleValue(), 
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(3).getText()).doubleValue(), 
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(4).getText()).doubleValue(),						
+							format.parse(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(7).getText()).doubleValue()
+							);
+			System.out.println(CTCCmol);
+			double vPorcentual = new EquilibrioCorrecaoCTC().calculaVPercentual(SCmol, CTCCmol);
+			
+			double moPercentual = new EquilibrioCorrecaoCTC().calculaMOPercentual(Double.parseDouble(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(8).getText()));
+			
+			double carbono = new EquilibrioCorrecaoCTC().calculaCarbono(moPercentual);
+			
+			
+			System.out.println(listaTextFieldsComInputUsuárioGuiaValoresIdeais.get(8).getText());
+			
+			listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(10).setText(Double.toString(SCmol));
+			listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(11).setText(Double.toString(CTCCmol));
+			listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(12).setText(Double.toString(vPorcentual));
+			listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(13).setText(Double.toString(moPercentual));
+			listaTextFieldsSemInputUsuárioGuiaValoresIdeais.get(14).setText(Double.toString(carbono));
+		} catch (NumberFormatException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
         

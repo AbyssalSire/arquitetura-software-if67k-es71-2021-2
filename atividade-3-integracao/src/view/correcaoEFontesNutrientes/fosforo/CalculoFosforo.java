@@ -1,10 +1,13 @@
 package view.correcaoEFontesNutrientes.fosforo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
+import java.util.Locale;
+
 import javax.swing.JTextField;
 
 import logic.edu.utfpr.cp.dacom.sa.soilcorrection.correcaoEFontesNutrientes.fosforo.ConverteKgHaEmP2O5;
@@ -17,7 +20,6 @@ public class CalculoFosforo implements EventListener{
     private JTextField texto;
     List<JTextField> listaTextFieldsComInputUsuárioGuiaFosforo = new ArrayList<JTextField>();
     List<JTextField> listaTextFieldsSemInputUsuárioGuiaFosforo = new ArrayList<JTextField>();
-    private String fonteFosfoto ="";
     
     public void ApagaBotoes(PaginaPrincipal pg){
         this.pg = pg;
@@ -28,7 +30,6 @@ public class CalculoFosforo implements EventListener{
         }        
     }
     
-    @SuppressWarnings("unlikely-arg-type")
 	public void VerificaVazio(PaginaPrincipal pg){
         this.pg = pg;
         this.listaTextFieldsComInputUsuárioGuiaFosforo = pg.getTextFieldComInputUsuarioGuiaFosforo();
@@ -42,20 +43,18 @@ public class CalculoFosforo implements EventListener{
 
     
     public void CalculaFosforo(PaginaPrincipal pg) {   
+    	NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
         this.pg = pg;
         this.listaTextFieldsComInputUsuárioGuiaFosforo = pg.getTextFieldComInputUsuarioGuiaFosforo();
         this.listaTextFieldsSemInputUsuárioGuiaFosforo = pg.getTextFieldSemInputUsuarioGuiaFosforo();
+        try {
         
         VerificaVazio(pg);
-        System.out.println(listaTextFieldsComInputUsuárioGuiaFosforo.get(1).getText());
-        
-    	double teorFosforoAdicionarMgDm3=0;
-        if(listaTextFieldsComInputUsuárioGuiaFosforo.get(1).getText().isEmpty()) {
-        	 teorFosforoAdicionarMgDm3 = 5;
-        } else {
-        	
-         teorFosforoAdicionarMgDm3 = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(1).getText());
-        }
+        //System.out.println(listaTextFieldsComInputUsuárioGuiaFosforo.get(1).getText());
+        double valorNoSolo = format.parse(pg.getTextFieldsSemInputUsuárioGuiaValoresIdeais().get(1).getText()).doubleValue();
+
+        double teorFosforoAdicionarMgDm3 = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(1).getText()).doubleValue()-valorNoSolo;
+
         double teorFosforoAdicionarKgHa = new ConverteKgHaEmP2O5()
                 .converte(teorFosforoAdicionarMgDm3);
         double teorFosforoAdicionarP2O5 = new ConverteKgHaEmP2O5()
@@ -64,21 +63,21 @@ public class CalculoFosforo implements EventListener{
 
         CorrecaoFosforo correcaoFosforo = new CorrecaoFosforo();
 
-        double eficienciaFosforo = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(2).getText())/100;
+        double eficienciaFosforo = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(2).getText()).doubleValue()/100;
         double necessidadeFosforo = correcaoFosforo
                     .calculaEficienciaNutriente(teorFosforoAdicionarP2O5, eficienciaFosforo);
-        double qtdeFosforoAplicar;
+        double qtdeFosforoAplicar=0;
         double custoFonte;
         Integer indiceFonte;
         double testaCustoReaisHa = 0;
-        double nutrientesAdicionais;
+        double nutrientesAdicionais = 0;
         switch (listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText()) {
 		case "1":
 	        qtdeFosforoAplicar = correcaoFosforo.calculaQuantidadeAplicar(
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -93,7 +92,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_TRIPO);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -108,7 +107,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.MAP);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -124,7 +123,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -140,7 +139,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -155,7 +154,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -170,7 +169,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -185,7 +184,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -205,7 +204,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -220,7 +219,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -235,7 +234,7 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+	        custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -250,7 +249,9 @@ public class CalculoFosforo implements EventListener{
 	                necessidadeFosforo, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES);
 	        indiceFonte = Integer.parseInt(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText())+3;
-	        custoFonte = Double.parseDouble(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText());
+
+				custoFonte = format.parse(listaTextFieldsComInputUsuárioGuiaFosforo.get(indiceFonte).getText()).doubleValue();
+
 	        
 	        testaCustoReaisHa = correcaoFosforo.calculaCusto(
 	        		custoFonte, 
@@ -259,9 +260,11 @@ public class CalculoFosforo implements EventListener{
 	        nutrientesAdicionais = correcaoFosforo.getNutrientesAdicionais(
 	                qtdeFosforoAplicar, 
 	                FonteFosforo.SUPERFOSFATO_SIMPLES).size();
+	        
+	        
 			break;
 		}
-              
+                      
         listaTextFieldsSemInputUsuárioGuiaFosforo.get(5).setText(Double.toString(qtdeFosforoAplicar));
         if(listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText().equals("1")||listaTextFieldsComInputUsuárioGuiaFosforo.get(0).getText().equals("12")) {
         	listaTextFieldsSemInputUsuárioGuiaFosforo.get(2).setText("Enxofre");
@@ -280,12 +283,15 @@ public class CalculoFosforo implements EventListener{
         } else {
         	listaTextFieldsSemInputUsuárioGuiaFosforo.get(3).setText("0.0");
         }
+
         
+        listaTextFieldsSemInputUsuárioGuiaFosforo.get(6).setText(Double.toString(testaCustoReaisHa*1000));
         
-        
-        listaTextFieldsSemInputUsuárioGuiaFosforo.get(6).setText(Double.toString(testaCustoReaisHa));
-        
-        
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
   
